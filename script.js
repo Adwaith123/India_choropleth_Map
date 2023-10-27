@@ -54,9 +54,19 @@ if (navigator.geolocation)
           fillOpacity: 0.7,
         };
       }
-      function myStyle(feature) {
+      function myStyle() {
         return {
           fillColor: "black",
+          weight: 2,
+          opacity: 1,
+          color: "white",
+          dashArray: "3",
+          fillOpacity: 0.7,
+        };
+      }
+      function myStyle1() {
+        return {
+          fillColor: "green",
           weight: 2,
           opacity: 1,
           color: "white",
@@ -76,6 +86,12 @@ if (navigator.geolocation)
           layer.bindPopup(feature.properties.NAME_1);
         }
       }
+      function onEachFeature2(feature, layer) {
+        // does this feature have a property named popupContent?
+        if (feature.properties && feature.properties.ADMIN) {
+          layer.bindPopup(feature.properties.ADMIN);
+        }
+      }
       //-----------Districts--------------
       L.geoJSON(districts, {
         onEachFeature: onEachFeature,
@@ -86,6 +102,12 @@ if (navigator.geolocation)
       L.geoJSON(states, {
         style: myStyle,
         onEachFeature: onEachFeature1,
+      }).addTo(map);
+
+      ////---countries-----
+      L.geoJSON(countries, {
+        style: myStyle1,
+        onEachFeature: onEachFeature2,
       }).addTo(map);
     },
     function () {
