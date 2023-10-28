@@ -20,71 +20,17 @@ if (navigator.geolocation)
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }
       ).addTo(map);
-      var myStyle = {
-        fillColor: "black",
-        color: "#595959",
-        weight: 3,
-        opacity: 0.8,
-      };
 
-      function getColor(d) {
-        return d > 1700
-          ? "#800026"
-          : d > 1500
-          ? "#BD0026"
-          : d > 1300
-          ? "#E31A1C"
-          : d > 1100
-          ? "#FC4E2A"
-          : d > 800
-          ? "#FD8D3C"
-          : d > 600
-          ? "#FEB24C"
-          : d > 300
-          ? "#FED976"
-          : "#FFEDA0";
-      }
-      function style(feature) {
-        return {
-          fillColor: getColor(feature.properties.density),
-          weight: 2,
-          opacity: 1,
-          color: "white",
-          dashArray: "3",
-          fillOpacity: 0.7,
-        };
-      }
-      function myStyle() {
-        return {
-          fillColor: "black",
-          weight: 2,
-          opacity: 1,
-          color: "white",
-          dashArray: "3",
-          fillOpacity: 0.7,
-        };
-      }
-      function myStyle1() {
+      function style() {
         return {
           fillColor: "green",
-          weight: 2,
+          weight: 1,
           opacity: 1,
-          color: "white",
+          color: "black",
           dashArray: "3",
-          fillOpacity: 0.7,
+          fillOpacity: 0.5,
+          dashArray: 0,
         };
-      }
-      function onEachFeature(feature, layer) {
-        // does this feature have a property named popupContent?
-        if (feature.properties && feature.properties.DISTRICT) {
-          layer.bindPopup(feature.properties.DISTRICT);
-        }
-      }
-      function onEachFeature1(feature, layer) {
-        // does this feature have a property named popupContent?
-        if (feature.properties && feature.properties.NAME_1) {
-          layer.bindPopup(feature.properties.NAME_1);
-        }
       }
       function onEachFeature2(feature, layer) {
         // does this feature have a property named popupContent?
@@ -92,21 +38,9 @@ if (navigator.geolocation)
           layer.bindPopup(feature.properties.ADMIN);
         }
       }
-      //-----------Districts--------------
-      L.geoJSON(districts, {
-        onEachFeature: onEachFeature,
-        style: style,
-      }).addTo(map);
-
-      ////---States-----
-      L.geoJSON(states, {
-        style: myStyle,
-        onEachFeature: onEachFeature1,
-      }).addTo(map);
-
       ////---countries-----
       L.geoJSON(countries, {
-        style: myStyle1,
+        style: style,
         onEachFeature: onEachFeature2,
       }).addTo(map);
     },
